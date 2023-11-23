@@ -22,7 +22,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "input_processing.h"
+#include "output_display.h"
+#include "led7seg.h"
+#include "global.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,7 +105,12 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	  fsm_for_input_processing();
+	  	  display7SEG(status);
 
+	  	  if (WhichButtonIsPressed()) {
+	  		  printf("Current mode is: %d\r\n", status);
+	  	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
