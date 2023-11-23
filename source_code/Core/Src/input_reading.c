@@ -92,3 +92,7 @@ unsigned char is_button_pressed_1s (unsigned char index ) {
 	if(index >= N0_OF_BUTTONS ) return 0xff ;
 	return (flagForButtonPress1s[index] == 1) ;
 }
+unsigned char is_button_pressed_one_quarter_second(unsigned char index) {
+	if(index >= N0_OF_BUTTONS) return 0xff ;
+	return (flagForButtonPressOneQuarterSecond[index] == 1) ;
+}
