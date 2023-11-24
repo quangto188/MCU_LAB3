@@ -118,7 +118,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  traffic_light_processing();
+	  fsm_for_input_processing();
+	  displayMode();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
