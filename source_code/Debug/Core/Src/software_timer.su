@@ -1,7 +1,7 @@
-software_timer.c:25:6:set_Timer_mode_debounce	16	static
 software_timer.c:29:6:setTimer1	16	static
-software_timer.c:36:6:setTimer2	16	static
-software_timer.c:43:6:setTimer3	16	static
-software_timer.c:50:6:setTimer4	16	static
-software_timer.c:58:6:setTimer5	16	static
-software_timer.c:65:6:timerRun	4	static
+software_timer.c:33:6:setTimer2	16	static
+software_timer.c:37:6:setTimer3	16	static
+software_timer.c:41:6:setTimer4	16	static
+software_timer.c:46:6:setTimer5	16	static
+software_timer.c:51:6:timerRun	4	static
+software_timer.c:84:6:clearTimer1	4	static

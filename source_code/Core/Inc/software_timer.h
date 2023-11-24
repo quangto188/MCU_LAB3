@@ -5,9 +5,12 @@
  *      Author: todiu_cp4n01g
  */
 
+
 #ifndef INC_SOFTWARE_TIMER_H_
 #define INC_SOFTWARE_TIMER_H_
-#define	DURATION_LED_BLINKING_2HZ	50
+
+#define	DURATION_1S					1000
+#define DURATION_HALF_OF_SECOND 	500
 extern int timer1_flag;
 extern int timer2_flag;
 extern int timer3_flag;
@@ -25,7 +28,5 @@ void setTimer3(int duration);
 void setTimer4(int duration);
 void setTimer5(int duration);
 void timerRun();
-
-
-
+void clearTimer1();
 #endif /* INC_SOFTWARE_TIMER_H_ */

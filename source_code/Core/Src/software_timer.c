@@ -5,6 +5,12 @@
  *      Author: todiu_cp4n01g
  */
 
+/*
+ * software_timer.c
+ *
+ *  Created on: Sep 25, 2022
+ *      Author: nguye
+ */
 
 #include "software_timer.h"
 
@@ -19,49 +25,29 @@ int timer3_counter = 0;
 int timer4_counter = 0;
 int timer5_counter = 0;
 
-int timer0_mode_debounce_flag = 0;
-int timer0_mode_debounce_counter = 0;
-
-void set_Timer_mode_debounce(int duration) {
-	timer0_mode_debounce_counter = duration ;
-	timer0_mode_debounce_flag = 0;
-}
+int TIMER_CYCLE = 10; // 10ms
 void setTimer1(int duration) {
-	if (duration != DURATION_LED_BLINKING_2HZ) {
-		duration = DURATION_LED_BLINKING_2HZ;
-	}
-	timer1_counter = duration ;
+	timer1_counter = duration / TIMER_CYCLE;
 	timer1_flag = 0;
 }
 void setTimer2(int duration) {
-	if (duration != DURATION_LED_BLINKING_2HZ) {
-		duration = DURATION_LED_BLINKING_2HZ;
-	}
-	timer2_counter = duration;
+	timer2_counter = duration / TIMER_CYCLE;
 	timer2_flag = 0;
 }
 void setTimer3(int duration) {
-	if (duration != DURATION_LED_BLINKING_2HZ) {
-		duration = DURATION_LED_BLINKING_2HZ;
-	}
-	timer3_counter = duration;
+	timer3_counter = duration / TIMER_CYCLE;
 	timer3_flag = 0;
 }
 void setTimer4(int duration) {
-	if (duration != DURATION_LED_BLINKING_2HZ) {
-		duration = DURATION_LED_BLINKING_2HZ;
-	}
-	timer4_counter = duration;
+	timer4_counter = duration / TIMER_CYCLE;
 	timer4_flag = 0;
 }
 
 void setTimer5(int duration) {
-	if (duration != DURATION_LED_BLINKING_2HZ) {
-		duration = DURATION_LED_BLINKING_2HZ;
-	}
-	timer5_counter = duration;
+	timer5_counter = duration / TIMER_CYCLE;
 	timer5_flag = 0;
 }
+
 void timerRun() {
 	if (timer1_counter > 0) {
 		timer1_counter--;
@@ -93,10 +79,9 @@ void timerRun() {
 			timer5_flag = 1;
 		}
 	}
-	if (timer0_mode_debounce_counter > 0) {
-		timer0_mode_debounce_counter--;
-		if (timer0_mode_debounce_counter <= 0) {
-			timer0_mode_debounce_flag = 1;
-		}
-	}
+}
+
+void clearTimer1() {
+	timer1_counter = 0;
+	timer1_flag = 0;
 }

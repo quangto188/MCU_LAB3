@@ -27,6 +27,9 @@
 #include "led7seg.h"
 #include "global.h"
 #include "stdio.h"
+#include "software_timer.h"
+#include "traffic_light_processing.h"
+#include "input_reading.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -97,7 +100,17 @@ int main(void)
   MX_TIM2_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT (&htim2) ;
+   //led7SEG_init();
+   GPIOA->BRR=0xFF;
+   led_init();
+   traffic_init();
+   setTimer1(2);
+   setTimer2(DURATION_1S);
+   setTimer3(DURATION_1S);
+   setTimer4(DURATION_1S);
+   setTimer5(250);
+   printf("The system is in MODE '1 - NORMAL_MODE' \r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -105,12 +118,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  fsm_for_input_processing();
-	  	  display7SEG(status);
 
-	  	  if (WhichButtonIsPressed()) {
-	  		  printf("Current mode is: %d\r\n", status);
-	  	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -243,32 +251,29 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, EN0_Pin|EN1_Pin|EN2_Pin|EN3_Pin
-                          |RX0_Pin|TX0_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, EN0_Pin|EN1_Pin|EN2_Pin|EN3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|DP3_Pin
-                          |DP4_Pin|DP5_Pin|DP6_Pin|SEG3_Pin
-                          |SEG4_Pin|SEG5_Pin|SEG6_Pin|DP0_Pin
-                          |DP1_Pin|DP2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|D3_Pin
+                          |D4_Pin|D5_Pin|D6_Pin|SEG3_Pin
+                          |SEG4_Pin|SEG5_Pin|SEG6_Pin|D0_Pin
+                          |D1_Pin|D2_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : EN0_Pin EN1_Pin EN2_Pin EN3_Pin
-                           RX0_Pin TX0_Pin */
-  GPIO_InitStruct.Pin = EN0_Pin|EN1_Pin|EN2_Pin|EN3_Pin
-                          |RX0_Pin|TX0_Pin;
+  /*Configure GPIO pins : EN0_Pin EN1_Pin EN2_Pin EN3_Pin */
+  GPIO_InitStruct.Pin = EN0_Pin|EN1_Pin|EN2_Pin|EN3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SEG0_Pin SEG1_Pin SEG2_Pin DP3_Pin
-                           DP4_Pin DP5_Pin DP6_Pin SEG3_Pin
-                           SEG4_Pin SEG5_Pin SEG6_Pin DP0_Pin
-                           DP1_Pin DP2_Pin */
-  GPIO_InitStruct.Pin = SEG0_Pin|SEG1_Pin|SEG2_Pin|DP3_Pin
-                          |DP4_Pin|DP5_Pin|DP6_Pin|SEG3_Pin
-                          |SEG4_Pin|SEG5_Pin|SEG6_Pin|DP0_Pin
-                          |DP1_Pin|DP2_Pin;
+  /*Configure GPIO pins : SEG0_Pin SEG1_Pin SEG2_Pin D3_Pin
+                           D4_Pin D5_Pin D6_Pin SEG3_Pin
+                           SEG4_Pin SEG5_Pin SEG6_Pin D0_Pin
+                           D1_Pin D2_Pin */
+  GPIO_InitStruct.Pin = SEG0_Pin|SEG1_Pin|SEG2_Pin|D3_Pin
+                          |D4_Pin|D5_Pin|D6_Pin|SEG3_Pin
+                          |SEG4_Pin|SEG5_Pin|SEG6_Pin|D0_Pin
+                          |D1_Pin|D2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
