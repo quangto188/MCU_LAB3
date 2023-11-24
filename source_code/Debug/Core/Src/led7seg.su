@@ -1,1 +1,5 @@
-led7seg.c:11:6:display7SEG	16	static
+led7seg.c:15:6:update_buffer	4	static
+led7seg.c:34:6:led_init	4	static
+led7seg.c:37:6:update7SEG	16	static
+led7seg.c:71:6:display7SEG	16	static
+led7seg.c:76:6:displayMode	8	static
